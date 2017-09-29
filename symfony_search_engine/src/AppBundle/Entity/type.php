@@ -93,5 +93,54 @@ class type
     {
         return $this->description;
     }
-}
+    
+    // ...
+    
+    /**
+     * @ORM\OneToMany(targetEntity="product", mappedBy="type")
+     */
+    private $products;
+    
+  
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\product $product
+     *
+     * @return type
+     */
+    public function addProduct(\AppBundle\Entity\product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AppBundle\Entity\product $product
+     */
+    public function removeProduct(\AppBundle\Entity\product $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+}

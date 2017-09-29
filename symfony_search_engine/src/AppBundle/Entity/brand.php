@@ -34,7 +34,19 @@ class brand
      * @ORM\Column(name="description", type="text")
      */
     private $description;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="product", mappedBy="brand")
+     */
+    private $products;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -93,5 +105,40 @@ class brand
     {
         return $this->description;
     }
-}
+    
+    
 
+    /**
+     * Add product
+     *
+     * @param \AppBundle\Entity\product $product
+     *
+     * @return brand
+     */
+    public function addProduct(\AppBundle\Entity\product $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \AppBundle\Entity\product $product
+     */
+    public function removeProduct(\AppBundle\Entity\product $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+}

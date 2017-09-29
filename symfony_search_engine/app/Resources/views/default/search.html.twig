@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        {{ form_start(searchForm) }}
+        {{ form_widget(searchForm) }}
+        {{ form_end(searchForm) }}
+    
+    
+     {% for product in products %}
+            <tr>
+                <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td>{{ product.ref }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{% if product.enabled %}Yes{% else %}No{% endif %}</td>
+                <td>{% if product.premium %}Yes{% else %}No{% endif %}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.note }}</td>
+                <td>{% if product.created %}{{ product.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if product.updated %}{{ product.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('product_show', { 'id': product.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('product_edit', { 'id': product.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+{% endblock %}

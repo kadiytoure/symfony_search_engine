@@ -310,5 +310,68 @@ class product
     {
         return $this->updated;
     }
-}
+    
+    // ...
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="type", inversedBy="products")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     */
+    private $type;
+    
+    // ...
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="brand", inversedBy="products")
+     * @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
+     */
+    private $brand;
 
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\type $type
+     *
+     * @return product
+     */
+    public function setType(\AppBundle\Entity\type $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set brand
+     *
+     * @param \AppBundle\Entity\brand $brand
+     *
+     * @return product
+     */
+    public function setBrand(\AppBundle\Entity\brand $brand = null)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \AppBundle\Entity\brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+}
