@@ -30,16 +30,114 @@ class DefaultController extends Controller
         $form = $this->createForm(productType::class);
         
         $repository = $this->getDoctrine()->getRepository(product::class);
-        $products = $repository->findAll();
+        //$products = $repository->findAll();
         
+        $price = $request->request->get('form')['price'];
+        $name = $request->request->get('form')['name'];
+        $premium = $request->request->get('form')['premium'];
+        $note = $request->request->get('form')['note'];
+        
+        
+        
+        $query = $repository->createQueryBuilder('p');
+                
+        
+        
+        if($price > 0) {
+            $query->where('p.price > :price')
+                  ->setParameter('price', $price);
+        }
+        
+        
+        
+        $query = $query->orderBy('p.price', 'ASC')
+              ->getQuery();
+        
+        $products = $query->getResult();
         
         return $this->render('default/search.html.twig', array(
             'products' => $products,
             'searchForm' => $form->createView()
         ));
+        
+       
+        
+        $name = $request->request->get('name');
+        
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$name) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$name);
+        }
+        
+        $description = $request->request->get('description');
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$description) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$description);
+        }
+        
+        $ref = $request->request->get('ref');
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$description) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$ref);
+        }
+        
+         $ref = $request->request->get('ref');
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$description) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$ref);
+        }
+        
+        $enabled = $request->request->get('enabled');
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$description) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$enabled);
+        }
+        
+          $premium = $request->request->get('premium');
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$description) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$premium);
+        }
+        
+        $note = $request->request->get('note');
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$description) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$note);
+        }
+        
+        $created = $request->request->get('created');
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$description) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$created);
+        }
+        
+        $updated = $request->request->get('updated');
+        $repository = $this->getDoctrine()->getRepository(product::class);
+        $query = $repository->createQueryBuilder('p');
+        if (!$description) {
+            throw $this->createNotFoundException(
+                    'No products found for' .$updated);
+        }
+        
+        $products = $query->getResult();
+        
     }
-     
-   
      
   
 }
