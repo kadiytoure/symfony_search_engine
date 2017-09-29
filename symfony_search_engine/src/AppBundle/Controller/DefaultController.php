@@ -25,13 +25,14 @@ class DefaultController extends Controller
     /**
      * @Route("/search", name="product_search")
      */
-    public function show()
+    public function show(Request $request)
     {
+        
         $form = $this->createForm(productType::class);
         
         $repository = $this->getDoctrine()->getRepository(product::class);
         //$products = $repository->findAll();
-        
+        //$request->request->get('form');
         $price = $request->request->get('form')['price'];
         $name = $request->request->get('form')['name'];
         $premium = $request->request->get('form')['premium'];
@@ -48,6 +49,20 @@ class DefaultController extends Controller
                   ->setParameter('price', $price);
         }
         
+        if($name) {
+            $query->where('p.name == :name')
+                  ->setParameter('name', $name);
+        }
+        
+         if($premium) {
+            $query->where('p.premium == :premium')
+                  ->setParameter('premium', $premium);
+        }
+        
+         if($note) {
+            $query->where('p.note == :note')
+                  ->setParameter('note', $note);
+        }
         
         
         $query = $query->orderBy('p.price', 'ASC')
@@ -61,7 +76,7 @@ class DefaultController extends Controller
         ));
         
        
-        
+        /*
         $name = $request->request->get('name');
         
         $repository = $this->getDoctrine()->getRepository(product::class);
@@ -136,7 +151,7 @@ class DefaultController extends Controller
         }
         
         $products = $query->getResult();
-        
+       */ 
     }
      
   

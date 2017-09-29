@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-        {{ form_start(searchForm) }}
+        {{ form_start(searchForm, {"attr" : {"novalidate": "novalidate"}}) }}
         {{ form_widget(searchForm) }}
         <input type="submit" value="Submit">
         {{ form_end(searchForm) }}
