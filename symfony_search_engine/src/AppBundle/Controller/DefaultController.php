@@ -27,28 +27,29 @@ class DefaultController extends Controller
      */
     public function show(Request $request)
     {
-        
         $form = $this->createForm(productType::class);
         
         $repository = $this->getDoctrine()->getRepository(product::class);
         //$products = $repository->findAll();
-        //$request->request->get('form');
-        $price = $request->request->get('form')['price'];
-        $name = $request->request->get('form')['name'];
-        $premium = $request->request->get('form')['premium'];
-        $note = $request->request->get('form')['note'];
+    //$request->request->get('form');
+        
+        $price = $request->request->get('appbundle_product')['price'];
+        //$name = $request->request->get('appbundle_product')['name'];
+        //$premium = $request->request->get('appbundle_product')['premium'];
+        //$note = $request->request->get('appbundle_product')['note'];
         
         
         
         $query = $repository->createQueryBuilder('p');
                 
         
-        
         if($price > 0) {
             $query->where('p.price > :price')
                   ->setParameter('price', $price);
         }
         
+        
+        /*
         if($name) {
             $query->where('p.name == :name')
                   ->setParameter('name', $name);
@@ -63,7 +64,7 @@ class DefaultController extends Controller
             $query->where('p.note == :note')
                   ->setParameter('note', $note);
         }
-        
+        */
         
         $query = $query->orderBy('p.price', 'ASC')
               ->getQuery();
